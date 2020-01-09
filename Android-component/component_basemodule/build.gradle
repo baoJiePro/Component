@@ -1,0 +1,45 @@
+apply from: "${rootProject.rootDir}/common_config.gradle"
+if (project.ext.isBaseDebug){
+    project.ext.setAppDefaultConfig project
+}else {
+    project.ext.setLibDefaultConfig project
+}
+
+
+android {
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main{
+            if (project.ext.isBaseDebug){
+                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+            }else {
+                manifest.srcFile 'src/main/release/AndroidManifest.xml'
+                resources {
+                    exclude 'debug/**'
+                }
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+
+    }
+
+}
+
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
+

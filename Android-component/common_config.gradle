@@ -1,0 +1,48 @@
+project.ext{
+    compileSdkVersion = 29
+    buildToolsVersion = "29.0.0"
+    minSdkVersion = 19
+    targetSdkVersion = 29
+    applicationId = "com.baojie.component"
+
+    isBaseDebug = false
+
+
+    setAppDefaultConfig = {
+        extension->
+            extension.apply plugin: 'com.android.application'
+            extension.description "app"
+            extension.android.defaultConfig {
+                applicationId project.ext.applicationId + "." + extension.getName()
+            }
+            setAndroidConfig extension.android
+            setDependencies extension.dependencies
+    }
+
+    setLibDefaultConfig = {
+        extension->
+            extension.apply plugin: 'com.android.library'
+            extension.description "lib"
+            setAndroidConfig extension.android
+            setDependencies extension.dependencies
+    }
+
+    setAndroidConfig = {
+        extension->
+            extension.compileSdkVersion project.ext.compileSdkVersion
+            extension.buildToolsVersion project.ext.buildToolsVersion
+            extension.defaultConfig {
+                minSdkVersion project.ext.minSdkVersion
+                targetSdkVersion project.ext.targetSdkVersion
+                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            }
+    }
+    setDependencies = {
+        extension->
+            extension.implementation fileTree(dir: 'libs', include: ['*.jar'])
+            extension.implementation 'androidx.appcompat:appcompat:1.0.2'
+            extension.testImplementation 'junit:junit:4.12'
+            extension.androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+            extension.androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    }
+}
