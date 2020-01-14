@@ -1,0 +1,47 @@
+apply from: "${rootProject.rootDir}/common_config.gradle"
+if (project.ext.isBaseDebug){
+    project.ext.setAppDefaultConfig project
+}else {
+    project.ext.setLibDefaultConfig project
+}
+
+android {
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //    AndroidManifest 必须要在main里面，在其他地方也会加载
+//    sourceSets {
+//        main{
+//            if (project.ext.isBaseDebug){
+//                manifest.srcFile 'src/main/debug/AndroidManifest.xml'
+//            }else {
+//                manifest.srcFile 'src/main/AndroidManifest.xml'
+//                resources {
+//                    exclude 'src/debug/**'
+//                }
+//                java {
+//                    exclude 'src/debug/**'
+//                }
+//            }
+//        }
+//
+//    }
+
+}
+
+dependencies {
+    api 'com.github.xiaojinzi123.Component:component-impl:1.7.7.3-androidx'
+    api 'com.github.xiaojinzi123.Component:component-impl-rx:1.7.7.3-androidx'
+    api 'io.reactivex.rxjava2:rxjava:2.2.17'
+}

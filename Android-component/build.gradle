@@ -5,7 +5,9 @@ buildscript {
 //    插件仓库配置
     repositories {
         google()
-        jcenter()
+        jcenter(){ url'http://maven.aliyun.com/nexus/content/groups/public/'}
+
+        maven { url 'https://jitpack.io' }
         
     }
 //    依赖插件
@@ -22,7 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://jitpack.io' }
     }
 }
 

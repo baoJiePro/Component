@@ -1,2 +1,2 @@
-include ':app', ':component_basemodule'
+include ':app', ':qd_base_module'
 rootProject.name='Component'
